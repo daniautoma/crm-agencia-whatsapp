@@ -113,7 +113,7 @@ export default async function DashboardPage() {
             Panel Operativo
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Bienvenido/a, <span className="font-semibold text-slate-700">{session.name}</span>. Resumen de la jornada en Clínica Dental Bianca.
+            Bienvenido/a, <span className="font-semibold text-slate-700">{session.name}</span>. Resumen de la jornada en daniautoma.
           </p>
         </div>
 
@@ -238,7 +238,7 @@ export default async function DashboardPage() {
               </div>
               <p className="text-xs text-slate-500 mt-0.5">
                 {whatsappConnected
-                  ? `Vinculado al número: ${clinicConfig?.whatsappConnectedNumber || 'Clínica Bianca'}`
+                  ? `Vinculado al número: ${clinicConfig?.whatsappConnectedNumber || 'daniautoma'}`
                   : 'Requiere vincular código QR desde Configuración'}
               </p>
             </div>

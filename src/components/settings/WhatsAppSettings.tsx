@@ -123,7 +123,7 @@ export function WhatsAppSettings({
               </div>
               <h4 className="font-bold text-sm text-slate-900">WhatsApp Conectado Exitosamente</h4>
               <p className="text-xs text-slate-500 mt-1">
-                Línea oficial de la clínica activa: <strong className="text-slate-800">{connectedNumber || 'Vinculada'}</strong>
+                Línea oficial de daniautoma activa: <strong className="text-slate-800">{connectedNumber || 'Vinculada'}</strong>
               </p>
             </div>
           ) : (

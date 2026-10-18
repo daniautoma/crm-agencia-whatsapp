@@ -245,7 +245,7 @@ export function ChatInbox({ initialConversations, currentUserName: _currentUserN
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Buscar paciente o teléfono..."
+              placeholder="Buscar cliente, lead o teléfono..."
               className="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-500 text-slate-900"
             />
           </div>
@@ -463,7 +463,7 @@ export function ChatInbox({ initialConversations, currentUserName: _currentUserN
                       <div key={'msg_' + item.id} className="flex flex-col items-end ml-auto max-w-[78%]">
                         <div className="bg-purple-600 text-white p-3.5 rounded-2xl rounded-tr-sm text-xs shadow-xs leading-relaxed">
                           <div className="flex items-center gap-1 text-[10px] text-purple-200 mb-1 font-semibold">
-                            <Bot className="w-3 h-3" /> Asistente IA (Clínica Bianca)
+                            <Bot className="w-3 h-3" /> Asistente IA Esteban (daniautoma)
                           </div>
                           {item.text}
                         </div>

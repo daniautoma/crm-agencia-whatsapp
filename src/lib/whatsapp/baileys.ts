@@ -113,7 +113,7 @@ class BaileysService {
           this.reconnectAttempts = 0;
           const userJid = this.socket?.user?.id || '';
           const rawPhone = userJid.split(':')[0] || userJid.split('@')[0];
-          const connectedPhone = rawPhone ? `+${rawPhone}` : 'Clínica Bianca';
+          const connectedPhone = rawPhone ? `+${rawPhone}` : 'daniautoma';
 
           await prisma.clinicConfig.update({
             where: { id: 'clinic_default' },
@@ -197,13 +197,13 @@ class BaileysService {
           const phoneNormalized = normalizeElSalvadorPhone(rawNumber);
 
           try {
-            // 1. Alta automática de paciente si no existe
+            // 1. Alta automática de cliente/lead si no existe
             let patient = await prisma.patient.findUnique({
               where: { phoneNormalized },
             });
 
             if (!patient) {
-              const pushName = msg.pushName || `Paciente WhatsApp (${phoneNormalized})`;
+              const pushName = msg.pushName || `Cliente WhatsApp (${phoneNormalized})`;
               patient = await prisma.patient.create({
                 data: {
                   fullName: pushName,
@@ -213,7 +213,7 @@ class BaileysService {
                   reminderPreference: 'WHATSAPP',
                 },
               });
-              console.log(`👤 [Baileys] Nuevo paciente auto-creado: ${patient.fullName}`);
+              console.log(`👤 [Baileys] Nuevo cliente/lead auto-creado: ${patient.fullName}`);
             }
 
             // 2. Upsert de la Conversación

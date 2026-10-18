@@ -10,13 +10,13 @@ export const AI_TOOLS: ChatCompletionTool[] = [
     type: "function",
     function: {
       name: "consultar_servicios_precios",
-      description: "Consulta el catálogo de tratamientos y servicios odontológicos de la clínica con sus precios oficiales en USD y duración.",
+      description: "Consulta el catálogo de soluciones y servicios de la agencia daniautoma (Agentes de WhatsApp IA, automatizaciones con n8n, landing pages, consultoría estratégica) con sus precios oficiales en USD y duración de llamada de valoración.",
       parameters: {
         type: "object",
         properties: {
           categoria: {
             type: "string",
-            description: "Categoría opcional: 'General', 'Limpieza', 'Restauración', 'Ortodoncia', 'Endodoncia', 'Estética', 'Cirugía', 'Urgencia'.",
+            description: "Categoría opcional: 'Agentes IA', 'Automatización', 'Desarrollo Web', 'Consultoría'.",
           },
         },
       },
@@ -26,7 +26,7 @@ export const AI_TOOLS: ChatCompletionTool[] = [
     type: "function",
     function: {
       name: "consultar_disponibilidad",
-      description: "Consulta los horarios libres disponibles de la clínica para una fecha específica (formato YYYY-MM-DD). Permite al paciente saber qué horas están desocupadas para agendar.",
+      description: "Consulta los horarios libres disponibles de la agencia para una fecha específica (formato YYYY-MM-DD). Permite al cliente conocer qué horas están desocupadas para agendar su llamada de valoración estratégica de 30 minutos.",
       parameters: {
         type: "object",
         properties: {
@@ -36,7 +36,7 @@ export const AI_TOOLS: ChatCompletionTool[] = [
           },
           dentistaId: {
             type: "string",
-            description: "ID opcional del profesional odontólogo.",
+            description: "ID opcional del consultor o especialista asignado.",
           },
         },
         required: ["fecha"],
@@ -47,33 +47,33 @@ export const AI_TOOLS: ChatCompletionTool[] = [
     type: "function",
     function: {
       name: "reservar_cita",
-      description: "Reserva formalmente una cita odontológica garantizando matemáticamente que no existan colisiones. Requiere haber obtenido confirmación explícita del paciente.",
+      description: "Reserva formalmente una llamada de valoración estratégica en el calendario garantizando matemáticamente que no existan colisiones. Requiere haber obtenido confirmación explícita del cliente.",
       parameters: {
         type: "object",
         properties: {
           pacienteTelefono: {
             type: "string",
-            description: "Número de WhatsApp o teléfono del paciente (ej: '+50371234567').",
+            description: "Número de WhatsApp o teléfono del cliente (ej: '+50371234567').",
           },
           pacienteNombre: {
             type: "string",
-            description: "Nombre completo del paciente.",
+            description: "Nombre completo del cliente o contacto.",
           },
           servicioId: {
             type: "string",
-            description: "ID del servicio odontológico seleccionado (obtenido de consultar_servicios_precios).",
+            description: "ID del servicio de interés (obtenido de consultar_servicios_precios).",
           },
           fechaHoraInicio: {
             type: "string",
-            description: "Fecha y hora de inicio de la cita en formato ISO YYYY-MM-DDTHH:mm:00 (ej: '2025-10-20T09:00:00').",
+            description: "Fecha y hora de inicio de la llamada en formato ISO YYYY-MM-DDTHH:mm:00 (ej: '2025-10-20T09:00:00').",
           },
           motivo: {
             type: "string",
-            description: "Motivo breve de la consulta o notas clínicas.",
+            description: "Motivo breve de la consulta, requerimiento técnico o notas del negocio.",
           },
           dentistaId: {
             type: "string",
-            description: "ID del dentista asignado (opcional, asigna a la Dra. Bianca por defecto).",
+            description: "ID del consultor asignado (opcional, asigna al consultor principal por defecto).",
           },
         },
         required: ["pacienteTelefono", "pacienteNombre", "servicioId", "fechaHoraInicio"],
@@ -84,13 +84,13 @@ export const AI_TOOLS: ChatCompletionTool[] = [
     type: "function",
     function: {
       name: "consultar_mis_citas",
-      description: "Consulta las citas agendadas o pendientes de un paciente a partir de su número de teléfono de WhatsApp.",
+      description: "Consulta las llamadas o reuniones agendadas de un cliente a partir de su número de teléfono de WhatsApp.",
       parameters: {
         type: "object",
         properties: {
           pacienteTelefono: {
             type: "string",
-            description: "Número de teléfono del paciente (ej: '+50371234567').",
+            description: "Número de teléfono del cliente (ej: '+50371234567').",
           },
         },
         required: ["pacienteTelefono"],
@@ -101,13 +101,13 @@ export const AI_TOOLS: ChatCompletionTool[] = [
     type: "function",
     function: {
       name: "reprogramar_cita",
-      description: "Mueve una cita existente a una nueva fecha y hora siempre que el nuevo horario esté completamente libre.",
+      description: "Mueve una llamada de valoración existente a una nueva fecha y hora siempre que el nuevo horario esté completamente libre.",
       parameters: {
         type: "object",
         properties: {
           citaId: {
             type: "string",
-            description: "ID único de la cita odontológica a reprogramar.",
+            description: "ID único de la llamada o cita a reprogramar.",
           },
           nuevaFechaHoraInicio: {
             type: "string",
@@ -122,17 +122,17 @@ export const AI_TOOLS: ChatCompletionTool[] = [
     type: "function",
     function: {
       name: "cancelar_cita",
-      description: "Cancela una cita odontológica agendada liberando el espacio para otros pacientes.",
+      description: "Cancela una llamada agendada liberando el espacio en el calendario de la agencia.",
       parameters: {
         type: "object",
         properties: {
           citaId: {
             type: "string",
-            description: "ID de la cita a cancelar.",
+            description: "ID de la cita o llamada a cancelar.",
           },
           motivo: {
             type: "string",
-            description: "Razón o explicación de la cancelación proporcionada por el paciente.",
+            description: "Razón o explicación de la cancelación proporcionada por el cliente.",
           },
         },
         required: ["citaId"],
@@ -143,13 +143,13 @@ export const AI_TOOLS: ChatCompletionTool[] = [
     type: "function",
     function: {
       name: "escalar_a_humano",
-      description: "Pausa el asistente de IA y transfiere la conversación inmediatamente a recepción o al equipo médico humano cuando hay una urgencia o solicitud directa.",
+      description: "Pausa el asistente de IA y transfiere la conversación inmediatamente a un asesor o consultor humano de daniautoma ante un requerimiento complejo o solicitud directa.",
       parameters: {
         type: "object",
         properties: {
           motivo: {
             type: "string",
-            description: "Razón del escalamiento (ej: 'Urgencia por dolor agudo', 'Solicita hablar con Dra. Bianca').",
+            description: "Razón del escalamiento (ej: 'Solicita hablar con un asesor', 'Proyecto a medida de alta complejidad').",
           },
           urgencia: {
             type: "string",
@@ -236,8 +236,8 @@ export async function executeAiTool(
         });
 
         const startHour = 8;
-        const endHour = 17;
-        const slotInterval = 30; // 30 minutos
+        const endHour = 18; // Horario daniautoma: 08:00 a 18:00
+        const slotInterval = 30; // 30 minutos (1 llamada por bloque)
 
         const availableSlots: string[] = [];
         const now = new Date();
@@ -268,7 +268,7 @@ export async function executeAiTool(
           success: true,
           data: {
             fecha: format(targetDate, "yyyy-MM-dd"),
-            dentista: dentistUser.name,
+            consultor: dentistUser.name,
             totalHorariosLibres: availableSlots.length,
             horariosDisponibles: availableSlots,
           },
@@ -313,7 +313,7 @@ export async function executeAiTool(
         }
 
         if (!dentist) {
-          return { success: false, error: "No hay odontólogo disponible para asignar." };
+          return { success: false, error: "No hay consultor disponible para asignar." };
         }
 
         const start = parseISO(fechaHoraInicio);
@@ -359,13 +359,13 @@ export async function executeAiTool(
           success: true,
           data: {
             citaId: newAppointment.id,
-            paciente: newAppointment.patient.fullName,
-            dentista: newAppointment.professional.name,
+            cliente: newAppointment.patient.fullName,
+            consultor: newAppointment.professional.name,
             servicio: newAppointment.service.name,
             fecha: format(new Date(newAppointment.startTime), "yyyy-MM-dd"),
             hora: format(new Date(newAppointment.startTime), "hh:mm a"),
             estado: newAppointment.status,
-            mensaje: "¡Cita reservada con éxito sin solapamientos!",
+            mensaje: "¡Llamada de valoración agendada con éxito!",
           },
         };
       }
@@ -530,6 +530,6 @@ export async function executeAiTool(
         return { success: false, error: `Herramienta desconocida: ${toolName}` };
     }
   } catch (err: any) {
-    return { success: false, error: err.message || "Error al ejecutar herramienta clínica." };
+    return { success: false, error: err.message || "Error al ejecutar herramienta de la agencia." };
   }
 }

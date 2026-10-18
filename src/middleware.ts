@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 import { jwtVerify } from 'jose';
 
 const SECRET_KEY = new TextEncoder().encode(
-  process.env.JWT_SECRET || 'super-secret-key-clinica-bianca-el-salvador-2025-cambiar-en-produccion'
+  process.env.JWT_SECRET || 'super-secret-key-daniautoma-el-salvador-2025-cambiar-en-produccion'
 );
 
 export async function middleware(request: NextRequest) {

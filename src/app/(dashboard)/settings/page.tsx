@@ -28,7 +28,7 @@ export default async function SettingsPage() {
           Centro de Control y Configuración
         </h1>
         <p className="text-xs text-slate-500 mt-1">
-          Gestión exclusiva de Administrador: Vinculación de WhatsApp, Agente Autónomo de IA con Simulador Clínico y Personal.
+          Gestión exclusiva de Administrador: Vinculación de WhatsApp, Agente Autónomo de IA (Esteban) con Simulador y Equipo.
         </p>
       </div>
 
@@ -39,7 +39,7 @@ export default async function SettingsPage() {
         initialQr={clinicConfig?.whatsappLastQr || null}
       />
 
-      {/* 2. Módulo de IA: Parámetros Clínicos + Playground Interactivo */}
+      {/* 2. Módulo de IA: Parámetros del Agente + Playground Interactivo */}
       <AiSettingsPlayground
         initialConfig={{
           aiModel: clinicConfig?.aiModel || 'google/gemini-2.5-flash',
@@ -51,7 +51,7 @@ export default async function SettingsPage() {
         hasApiKey={hasApiKey}
       />
 
-      {/* 3. Panel: Personal de la Clínica (Usuarios y Roles RBAC) */}
+      {/* 3. Panel: Equipo de la Agencia (Usuarios y Roles RBAC) */}
       <div className="bg-white rounded-2xl border border-slate-200 shadow-card p-6">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2.5">

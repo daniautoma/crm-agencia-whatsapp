@@ -13,6 +13,7 @@ import {
   Settings,
   LogOut,
   Radio,
+  Zap,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { logoutAction } from '@/app/actions/auth';
@@ -39,13 +40,13 @@ export function Sidebar({ user, unreadChatsCount = 0, whatsappStatus = 'DISCONNE
       roles: ['ADMIN', 'RECEPTIONIST', 'DENTIST'],
     },
     {
-      name: 'Calendario de Citas',
+      name: 'Calendario de Llamadas',
       href: '/calendar',
       icon: Calendar,
       roles: ['ADMIN', 'RECEPTIONIST', 'DENTIST'],
     },
     {
-      name: 'Pacientes',
+      name: 'Clientes & Leads',
       href: '/patients',
       icon: Users,
       roles: ['ADMIN', 'RECEPTIONIST', 'DENTIST'],
@@ -81,8 +82,8 @@ export function Sidebar({ user, unreadChatsCount = 0, whatsappStatus = 'DISCONNE
 
   const roleLabels: Record<string, { label: string; color: string }> = {
     ADMIN: { label: 'Administrador', color: 'bg-purple-100 text-purple-700' },
-    RECEPTIONIST: { label: 'Recepción', color: 'bg-blue-100 text-blue-700' },
-    DENTIST: { label: 'Odontóloga', color: 'bg-emerald-100 text-emerald-700' },
+    RECEPTIONIST: { label: 'Operaciones', color: 'bg-blue-100 text-blue-700' },
+    DENTIST: { label: 'Consultor IA', color: 'bg-emerald-100 text-emerald-700' },
   };
 
   const currentRole = roleLabels[user.role] || { label: user.role, color: 'bg-slate-100 text-slate-700' };
@@ -93,13 +94,13 @@ export function Sidebar({ user, unreadChatsCount = 0, whatsappStatus = 'DISCONNE
       <div className="p-5 border-b border-slate-100 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center text-white shadow-md shadow-brand-500/20 font-bold text-lg">
-            🦷
+            <Zap className="w-5 h-5 text-white" />
           </div>
           <div>
             <h1 className="font-semibold text-slate-900 text-sm tracking-tight leading-tight">
-              Clínica Dra. Bianca
+              daniautoma
             </h1>
-            <p className="text-xs text-slate-500 font-medium">CRM Operativo V1</p>
+            <p className="text-xs text-slate-500 font-medium">Agencia IA & CRM</p>
           </div>
         </div>
       </div>

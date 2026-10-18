@@ -10,8 +10,8 @@ export function getOpenRouterClient(apiKey?: string): OpenAI {
       apiKey: key,
       baseURL: "https://openrouter.ai/api/v1",
       defaultHeaders: {
-        "HTTP-Referer": "https://clinicabianca.com",
-        "X-Title": "CRM Clinica Dental Bianca",
+        "HTTP-Referer": "https://daniautoma.cloud",
+        "X-Title": "CRM daniautoma AI",
       },
     });
   }

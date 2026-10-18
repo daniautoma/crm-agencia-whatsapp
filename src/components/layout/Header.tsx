@@ -46,18 +46,18 @@ export function Header({ title, subtitle, userRole: _userRole }: HeaderProps) {
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Buscar paciente, teléfono o cita..."
+            placeholder="Buscar cliente, teléfono o llamada..."
             className="pl-9 pr-4 py-1.5 text-xs bg-slate-50 hover:bg-slate-100/80 focus:bg-white border border-slate-200 rounded-lg w-64 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-slate-900 placeholder:text-slate-400"
           />
         </div>
 
-        {/* Quick action: Agendar Cita */}
+        {/* Quick action: Agendar Llamada */}
         <Link
           href="/calendar?action=new"
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold shadow-xs transition-colors"
         >
           <Plus className="w-3.5 h-3.5" />
-          <span>Agendar Cita</span>
+          <span>Agendar Llamada</span>
         </Link>
       </div>
     </header>

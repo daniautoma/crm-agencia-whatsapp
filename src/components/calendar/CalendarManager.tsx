@@ -279,7 +279,7 @@ export function CalendarManager({
               onChange={(e) => setSelectedDentistId(e.target.value)}
               className="px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-brand-500 text-slate-800 font-medium"
             >
-              <option value="ALL">Todos los Odontólogos</option>
+              <option value="ALL">Todos los Consultores</option>
               {dentists.map((d) => (
                 <option key={d.id} value={d.id}>
                   {d.name}
@@ -566,7 +566,7 @@ export function CalendarManager({
               {/* Odontólogo Asignado */}
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Odontólogo/a Asignado/a *
+                  Consultor Asignado *
                 </label>
                 <select
                   required

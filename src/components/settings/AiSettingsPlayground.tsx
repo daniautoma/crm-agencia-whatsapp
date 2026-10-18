@@ -3,20 +3,16 @@
 import React, { useState } from 'react';
 import {
   Bot,
-  Play,
   Save,
   RotateCcw,
   Sparkles,
   Zap,
   Wrench,
   Clock,
-  CheckCircle2,
-  AlertCircle,
   Eye,
   EyeOff,
   Send,
   User,
-  ShieldCheck,
 } from 'lucide-react';
 import { updateAiConfigAction, simulateAiMessageAction, SimulationToolCallResult } from '@/app/actions/ai-settings';
 
@@ -49,7 +45,7 @@ export function AiSettingsPlayground({ initialConfig, hasApiKey }: AiSettingsPla
   >([
     {
       role: 'assistant',
-      content: '¡Hola! Soy el Asistente Virtual de la Clínica Dental Dra. Bianca. ¿En qué puedo ayudarte hoy?',
+      content: '¡Hola! Soy Esteban, Asistente Virtual Oficial de daniautoma. ¿En qué puedo ayudarte hoy?',
     },
   ]);
   const [inputMessage, setInputMessage] = useState('');
@@ -281,7 +277,7 @@ export function AiSettingsPlayground({ initialConfig, hasApiKey }: AiSettingsPla
                 <Sparkles className="w-4 h-4" />
               </div>
               <div>
-                <h3 className="font-bold text-sm text-slate-900">Simulador Clínico (Playground)</h3>
+                <h3 className="font-bold text-sm text-slate-900">Simulador de Agente IA (Playground)</h3>
                 <p className="text-[11px] text-slate-500">Prueba el comportamiento del agente y la ejecución de herramientas</p>
               </div>
             </div>
@@ -292,7 +288,7 @@ export function AiSettingsPlayground({ initialConfig, hasApiKey }: AiSettingsPla
                 setChatMessages([
                   {
                     role: 'assistant',
-                    content: '¡Hola! Soy el Asistente Virtual de la Clínica Dental Dra. Bianca. ¿En qué puedo ayudarte hoy?',
+                    content: '¡Hola! Soy Esteban, Asistente Virtual Oficial de daniautoma. ¿En qué puedo ayudarte hoy?',
                   },
                 ])
               }
@@ -381,9 +377,9 @@ export function AiSettingsPlayground({ initialConfig, hasApiKey }: AiSettingsPla
             {isSimulating && (
               <div className="flex gap-2.5 items-center text-xs text-slate-400 italic">
                 <div className="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center shrink-0 text-xs font-bold animate-pulse">
-                  B
+                  E
                 </div>
-                <span>Dra. Bianca (IA) está pensando y verificando disponibilidad clínica...</span>
+                <span>Esteban (IA) está pensando y verificando disponibilidad de llamadas...</span>
               </div>
             )}
           </div>
@@ -399,7 +395,7 @@ export function AiSettingsPlayground({ initialConfig, hasApiKey }: AiSettingsPla
             >
               <input
                 type="text"
-                placeholder="Escribe un mensaje de paciente para probar el agente..."
+                placeholder="Escribe un mensaje de cliente para probar a Esteban..."
                 value={inputMessage}
                 disabled={isSimulating}
                 onChange={(e) => setInputMessage(e.target.value)}

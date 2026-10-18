@@ -323,13 +323,13 @@ export function ServicesManager({ initialServices, canEdit }: ServicesManagerPro
 
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Descripción Orientativa (para la IA y Pacientes)
+                  Descripción Orientativa (para la IA y Clientes)
                 </label>
                 <textarea
                   rows={3}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Detalla qué incluye el procedimiento para que la IA responda preguntas de pacientes con precisión..."
+                  placeholder="Detalla qué incluye el servicio o solución para que la IA responda dudas de prospectos con precisión..."
                   className="w-full p-3 text-xs bg-slate-50 focus:bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 text-slate-900"
                 />
               </div>
@@ -347,7 +347,7 @@ export function ServicesManager({ initialServices, canEdit }: ServicesManagerPro
                   disabled={isSubmitting}
                   className="px-4 py-2 text-xs font-semibold rounded-xl bg-brand-600 text-white hover:bg-brand-700 transition-colors shadow-xs disabled:opacity-60"
                 >
-                  {isSubmitting ? 'Guardando...' : editingService ? 'Actualizar' : 'Guardar Tratamiento'}
+                  {isSubmitting ? 'Guardando...' : editingService ? 'Actualizar' : 'Guardar Servicio'}
                 </button>
               </div>
             </form>

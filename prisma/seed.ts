@@ -4,183 +4,158 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('🌱 Iniciando seed de la base de datos...');
+  console.log('🌱 Iniciando seed de la base de datos de daniautoma...');
 
-  const adminEmail = process.env.ADMIN_EMAIL || 'admin@clinicabianca.com';
-  const adminPassword = process.env.ADMIN_PASSWORD || 'AdminClinica2025!';
+  const adminEmail = process.env.ADMIN_EMAIL || 'admin@daniautoma.cloud';
+  const adminPassword = process.env.ADMIN_PASSWORD || 'AdminAutoma2025!';
 
-  // 1. Configuración de la Clínica
-  const existingConfig = await prisma.clinicConfig.findUnique({
+  // 1. Configuración de la Agencia
+  await prisma.clinicConfig.upsert({
     where: { id: 'clinic_default' },
+    create: {
+      id: 'clinic_default',
+      clinicName: 'daniautoma (Agencia de Automatización e Inteligencia Artificial)',
+      clinicAddress: 'San Salvador, El Salvador • Servicios Digitales Globales',
+      clinicPhone: '+50370000000',
+      parkingInfo: 'Reuniones virtuales vía Google Meet / Zoom o presenciales con cita previa.',
+      holidaysJson: JSON.stringify(['2025-01-01', '2025-05-01', '2025-08-05', '2025-08-06', '2025-09-15', '2025-11-02', '2025-12-25']),
+      aiModel: 'google/gemini-2.5-flash',
+      aiTemperature: 0.2,
+      aiBufferSeconds: 8,
+      aiSystemPrompt: `Eres Esteban, el asistente virtual de daniautoma, una agencia experta en automatización con inteligencia artificial, agentes de WhatsApp y desarrollo web para negocios. Tu objetivo es saludar al cliente, explicar brevemente nuestros servicios, responder preguntas frecuentes sobre cómo la IA ayuda a conseguir más clientes y agendar una llamada de valoración estratégica de 30 minutos en nuestro calendario. Sé conciso y utiliza emojis de forma moderada. Si el usuario solicita hablar con una persona real o tiene un requerimiento técnico complejo, deriva la conversación inmediatamente a un agente humano.`,
+      aiIsGloballyActive: true,
+      whatsappSessionStatus: 'DISCONNECTED',
+    },
+    update: {
+      clinicName: 'daniautoma (Agencia de Automatización e Inteligencia Artificial)',
+      clinicAddress: 'San Salvador, El Salvador • Servicios Digitales Globales',
+      clinicPhone: '+50370000000',
+      parkingInfo: 'Reuniones virtuales vía Google Meet / Zoom o presenciales con cita previa.',
+      aiSystemPrompt: `Eres Esteban, el asistente virtual de daniautoma, una agencia experta en automatización con inteligencia artificial, agentes de WhatsApp y desarrollo web para negocios. Tu objetivo es saludar al cliente, explicar brevemente nuestros servicios, responder preguntas frecuentes sobre cómo la IA ayuda a conseguir más clientes y agendar una llamada de valoración estratégica de 30 minutos en nuestro calendario. Sé conciso y utiliza emojis de forma moderada. Si el usuario solicita hablar con una persona real o tiene un requerimiento técnico complejo, deriva la conversación inmediatamente a un agente humano.`,
+    },
   });
+  console.log('✅ Configuración de la agencia guardada.');
 
-  if (!existingConfig) {
-    await prisma.clinicConfig.create({
-      data: {
-        id: 'clinic_default',
-        clinicName: 'Clínica Dental Dra. Bianca Nathaly Hernández Flores',
-        clinicAddress: 'Calle El Mirador, Colonia Escalón, San Salvador, El Salvador',
-        clinicPhone: '+50322550000',
-        parkingInfo: 'Parqueo privado gratuito para pacientes frente al edificio.',
-        holidaysJson: JSON.stringify(['2025-01-01', '2025-05-01', '2025-08-05', '2025-08-06', '2025-09-15', '2025-11-02', '2025-12-25']),
-        aiModel: 'google/gemini-2.5-flash',
-        aiTemperature: 0.2,
-        aiBufferSeconds: 8,
-        aiSystemPrompt: `Eres el Asistente Virtual Oficial de la Clínica Dental Dra. Bianca Nathaly Hernández Flores en El Salvador.
-Tu misión es atender con calidez, respeto y terminología salvadoreña cordial ("con gusto", "a la orden", "estimado/a paciente").
-Horarios: Lunes a Viernes de 8:00 AM a 5:00 PM (almuerzo de 12:00 MD a 1:00 PM), Sábados de 8:00 AM a 12:00 MD.
-Reglas estrictas:
-1. NUNCA diagnostiques patologías médicas ni prescribas medicamentos (prohibido recomendar analgésicos o antibióticos). Ante dolor agudo o hemorragia, deriva a urgencias de inmediato.
-2. NUNCA inventes precios. Solo indica los precios autorizados obtenidos mediante tus herramientas.
-3. Utiliza tus herramientas para consultar disponibilidad antes de reservar.`,
-        aiIsGloballyActive: true,
-        whatsappSessionStatus: 'DISCONNECTED',
-      },
-    });
-    console.log('✅ Configuración de la clínica creada.');
-  }
-
-  // 2. Administrador
-  const existingAdmin = await prisma.user.findUnique({
+  // 2. Administrador General
+  const hashedAdminPassword = await bcrypt.hash(adminPassword, 10);
+  await prisma.user.upsert({
     where: { email: adminEmail },
+    create: {
+      name: 'Admin daniautoma',
+      email: adminEmail,
+      passwordHash: hashedAdminPassword,
+      role: 'ADMIN',
+      isActive: true,
+      phone: '+50370000001',
+    },
+    update: {
+      name: 'Admin daniautoma',
+      passwordHash: hashedAdminPassword,
+      role: 'ADMIN',
+      isActive: true,
+    },
   });
+  console.log(`✅ Usuario Administrador configurado: ${adminEmail}`);
 
-  if (!existingAdmin) {
-    const hashedAdminPassword = await bcrypt.hash(adminPassword, 10);
-    await prisma.user.create({
-      data: {
-        name: 'Administrador General',
-        email: adminEmail,
-        passwordHash: hashedAdminPassword,
-        role: 'ADMIN',
-        isActive: true,
-        phone: '+50370000001',
-      },
-    });
-    console.log(`✅ Usuario Administrador creado: ${adminEmail}`);
-  } else {
-    console.log(`ℹ️ Usuario Administrador existente, no se sobrescribe: ${adminEmail}`);
-  }
-
-  // 3. Recepcionista
-  const recepEmail = 'recepcion@clinicabianca.com';
-  const existingRecep = await prisma.user.findUnique({
-    where: { email: recepEmail },
+  // 3. Asistente de Operaciones
+  const opsEmail = 'operaciones@daniautoma.cloud';
+  const hashedOpsPassword = await bcrypt.hash('Operaciones2025!', 10);
+  await prisma.user.upsert({
+    where: { email: opsEmail },
+    create: {
+      name: 'Operaciones y Soporte',
+      email: opsEmail,
+      passwordHash: hashedOpsPassword,
+      role: 'RECEPTIONIST',
+      isActive: true,
+      phone: '+50370000002',
+    },
+    update: {
+      name: 'Operaciones y Soporte',
+      role: 'RECEPTIONIST',
+      isActive: true,
+    },
   });
+  console.log(`✅ Asistente de Operaciones configurado: ${opsEmail}`);
 
-  if (!existingRecep) {
-    const hashedRecepPassword = await bcrypt.hash('Recepcion2025!', 10);
-    await prisma.user.create({
-      data: {
-        name: 'Karla Morales (Recepción)',
-        email: recepEmail,
-        passwordHash: hashedRecepPassword,
-        role: 'RECEPTIONIST',
-        isActive: true,
-        phone: '+50370000002',
-      },
-    });
-    console.log(`✅ Recepcionista creada: ${recepEmail}`);
-  }
-
-  // 4. Odontóloga Principal (Dra. Bianca)
-  const dentistEmail = 'bianca@clinicabianca.com';
-  let dentistUser = await prisma.user.findUnique({
-    where: { email: dentistEmail },
+  // 4. Consultor Principal / Especialista en IA (Dani)
+  const consultantEmail = 'dani@daniautoma.cloud';
+  const hashedConsultantPassword = await bcrypt.hash('Dani2025!', 10);
+  const consultantUser = await prisma.user.upsert({
+    where: { email: consultantEmail },
+    create: {
+      name: 'Dani (Consultor Principal IA)',
+      email: consultantEmail,
+      passwordHash: hashedConsultantPassword,
+      role: 'DENTIST',
+      isActive: true,
+      phone: '+50370000003',
+    },
+    update: {
+      name: 'Dani (Consultor Principal IA)',
+      role: 'DENTIST',
+      isActive: true,
+    },
   });
+  console.log(`✅ Consultor Principal configurado: ${consultantEmail}`);
 
-  if (!dentistUser) {
-    const hashedDentistPassword = await bcrypt.hash('Bianca2025!', 10);
-    dentistUser = await prisma.user.create({
-      data: {
-        name: 'Dra. Bianca Nathaly Hernández Flores',
-        email: dentistEmail,
-        passwordHash: hashedDentistPassword,
-        role: 'DENTIST',
-        isActive: true,
-        phone: '+50370000003',
-      },
-    });
-    console.log(`✅ Odontóloga creada: ${dentistEmail}`);
-  }
-
-  // Perfil Profesional de la Dra. Bianca
-  let professional = await prisma.professional.findUnique({
-    where: { userId: dentistUser.id },
+  // Perfil Profesional / Horarios del Consultor
+  const professional = await prisma.professional.upsert({
+    where: { userId: consultantUser.id },
+    create: {
+      userId: consultantUser.id,
+      specialty: 'Consultoría en IA y Automatización con n8n',
+      activeDays: '1,2,3,4,5', // Lunes a Viernes
+      startHour: '08:00',
+      endHour: '18:00',
+      lunchStart: '12:00',
+      lunchEnd: '13:00',
+      slotIntervalMin: 30,
+    },
+    update: {
+      specialty: 'Consultoría en IA y Automatización con n8n',
+      activeDays: '1,2,3,4,5',
+      startHour: '08:00',
+      endHour: '18:00',
+      lunchStart: '12:00',
+      lunchEnd: '13:00',
+      slotIntervalMin: 30,
+    },
   });
+  console.log('✅ Perfil y disponibilidad laboral de consultoría guardados (L-V 08:00-18:00).');
 
-  if (!professional) {
-    professional = await prisma.professional.create({
-      data: {
-        userId: dentistUser.id,
-        specialty: 'Odontología General y Estética Dental',
-        activeDays: '1,2,3,4,5,6',
-        startHour: '08:00',
-        endHour: '17:00',
-        lunchStart: '12:00',
-        lunchEnd: '13:00',
-        slotIntervalMin: 30,
-      },
-    });
-    console.log('✅ Perfil profesional creado para Dra. Bianca.');
-  }
-
-  // 5. Catálogo de Servicios Odontológicos (Precios USD)
+  // 5. Catálogo de Servicios de daniautoma
   const defaultServices = [
     {
-      name: 'Evaluación y Diagnóstico Odontológico',
-      category: 'Diagnóstico',
-      description: 'Revisión clínica completa con espejo e instrumental diagnóstico, evaluación periodontal y plan de tratamiento.',
+      name: 'Agente de WhatsApp con IA & CRM',
+      category: 'Agentes IA',
+      description: 'Agente conversacional conectado a WhatsApp que agenda citas, resuelve dudas y cualifica clientes 24/7. Incluye panel de gestión.',
       durationMinutes: 30,
-      price: 15.0,
-      isPriceVariable: false,
-    },
-    {
-      name: 'Limpieza Dental Ultrasónica (Profilaxis)',
-      category: 'Prevención',
-      description: 'Remoción de placa bacteriana, sarro y pulido dental con pasta profiláctica y flúor.',
-      durationMinutes: 45,
-      price: 30.0,
-      isPriceVariable: false,
-    },
-    {
-      name: 'Restauración Estética con Resina (Calza)',
-      category: 'Restauración',
-      description: 'Eliminación de caries y colocación de resina fotocurable de alta estética del color dental.',
-      durationMinutes: 45,
-      price: 35.0,
-      isPriceVariable: false,
-    },
-    {
-      name: 'Extracción Dental Simple',
-      category: 'Cirugía Menor',
-      description: 'Extracción de pieza dental no compleja bajo anestesia local.',
-      durationMinutes: 45,
-      price: 35.0,
-      isPriceVariable: false,
-    },
-    {
-      name: 'Blanqueamiento Dental en Consultorio',
-      category: 'Estética',
-      description: 'Aclaramiento dental profesional con peróxido de hidrógeno activado por luz LED en 1 sola sesión.',
-      durationMinutes: 60,
-      price: 120.0,
-      isPriceVariable: false,
-    },
-    {
-      name: 'Tratamiento de Ortodoncia (Frenillos)',
-      category: 'Ortodoncia',
-      description: 'Colocación de brackets metálicos o estéticos. El precio definitivo está sujeto a valoración clínica previa.',
-      durationMinutes: 60,
       price: 250.0,
-      isPriceVariable: true,
+      isPriceVariable: false,
     },
     {
-      name: 'Endodoncia (Tratamiento de Conductos)',
-      category: 'Endodoncia',
-      description: 'Tratamiento de pulpa infectada en pieza unirradicular o multirradicular.',
-      durationMinutes: 60,
-      price: 110.0,
+      name: 'Automatizaciones de Procesos con n8n',
+      category: 'Automatización',
+      description: 'Creación de flujos de trabajo automatizados entre aplicaciones (Google Sheets, CRMs, Email, Webhooks).',
+      durationMinutes: 30,
+      price: 150.0,
+      isPriceVariable: false,
+    },
+    {
+      name: 'Desarrollo de Landing Page Optimizada',
+      category: 'Desarrollo Web',
+      description: 'Sitios web ultra-rápidos de alta conversión con integración a WhatsApp y formularios.',
+      durationMinutes: 30,
+      price: 200.0,
+      isPriceVariable: false,
+    },
+    {
+      name: 'Consultoría de IA & Diagnóstico Digital',
+      category: 'Consultoría',
+      description: 'Sesión estratégica de 45 minutos para identificar puntos de automatización en el negocio del cliente. Requiere valoración previa.',
+      durationMinutes: 45,
+      price: 0.0,
       isPriceVariable: true,
     },
   ];
@@ -192,6 +167,12 @@ Reglas estrictas:
       const created = await prisma.service.create({ data: s });
       serviceId = created.id;
       console.log(`✅ Servicio creado: ${s.name} ($${s.price})`);
+    } else {
+      await prisma.service.update({
+        where: { id: existing.id },
+        data: s,
+      });
+      console.log(`ℹ️ Servicio actualizado: ${s.name}`);
     }
 
     if (serviceId && professional) {
@@ -211,33 +192,84 @@ Reglas estrictas:
     }
   }
 
-  // 6. Paciente de ejemplo para pruebas de consulta
-  const samplePatient = await prisma.patient.upsert({
+  // 6. Contactos / Potenciales de ejemplo para pruebas de agencia
+  const lead1 = await prisma.patient.upsert({
     where: { phoneNormalized: '+50378901234' },
     create: {
-      fullName: 'Carlos Alberto Rivas',
+      fullName: 'Carlos Rivas (Clínica Médica Santa Fe)',
       phoneNormalized: '+50378901234',
-      email: 'carlos.rivas@ejemplo.sv',
-      tags: 'Recurrente,Limpieza',
-      generalNotes: 'Paciente puntual. Sensibilidad leve en molares inferiores.',
+      email: 'carlos.rivas@negocioprueba.sv',
+      tags: 'Lead Calificado,WhatsApp IA',
+      generalNotes: 'Interesado en implementar agente de WhatsApp para agendamiento de pacientes y recordatorios automáticos.',
       reminderPreference: 'WHATSAPP',
     },
-    update: {},
+    update: {
+      fullName: 'Carlos Rivas (Clínica Médica Santa Fe)',
+      tags: 'Lead Calificado,WhatsApp IA',
+      generalNotes: 'Interesado en implementar agente de WhatsApp para agendamiento de pacientes y recordatorios automáticos.',
+    },
   });
 
-  // Conversación de ejemplo
-  await prisma.conversation.upsert({
+  const lead2 = await prisma.patient.upsert({
+    where: { phoneNormalized: '+50371234567' },
+    create: {
+      fullName: 'Mariana López (Comercial El Roble)',
+      phoneNormalized: '+50371234567',
+      email: 'mariana.lopez@elroble.com',
+      tags: 'Prospecto,n8n Automatización',
+      generalNotes: 'Requiere sincronización de pedidos entre Shopify, Google Sheets y avisos al equipo de despacho por WhatsApp.',
+      reminderPreference: 'WHATSAPP',
+    },
+    update: {
+      fullName: 'Mariana López (Comercial El Roble)',
+      tags: 'Prospecto,n8n Automatización',
+      generalNotes: 'Requiere sincronización de pedidos entre Shopify, Google Sheets y avisos al equipo de despacho por WhatsApp.',
+    },
+  });
+
+  // Conversación de ejemplo en bandeja
+  const conv1 = await prisma.conversation.upsert({
     where: { whatsappJid: '50378901234@s.whatsapp.net' },
     create: {
-      patientId: samplePatient.id,
+      patientId: lead1.id,
       whatsappJid: '50378901234@s.whatsapp.net',
       status: 'OPEN',
       isAiActive: true,
     },
-    update: {},
+    update: {
+      status: 'OPEN',
+      isAiActive: true,
+    },
   });
 
-  console.log('🚀 Seed completado exitosamente.');
+  // Mensaje de saludo inicial de prueba si no existen mensajes
+  const existingMsgCount = await prisma.message.count({
+    where: { conversationId: conv1.id },
+  });
+
+  if (existingMsgCount === 0) {
+    await prisma.message.create({
+      data: {
+        conversationId: conv1.id,
+        senderType: 'PATIENT',
+        senderName: 'Carlos Rivas',
+        text: '¡Hola! Me gustaría saber cómo funciona el Agente de WhatsApp con IA para mi clínica y agendar una llamada.',
+        status: 'RECEIVED',
+      },
+    });
+
+    await prisma.message.create({
+      data: {
+        conversationId: conv1.id,
+        senderType: 'AI',
+        senderName: 'Esteban (daniautoma)',
+        text: '¡Hola Carlos! 👋 Con gusto. En daniautoma desarrollamos agentes con inteligencia artificial conectados a WhatsApp que atienden 24/7, responden consultas y agendan citas automáticamente en tu calendario. ¿Te gustaría agendar una llamada de valoración estratégica de 30 minutos esta semana?',
+        status: 'DELIVERED',
+      },
+    });
+  }
+
+  console.log('🚀 Seed de daniautoma completado exitosamente.');
 }
 
 main()

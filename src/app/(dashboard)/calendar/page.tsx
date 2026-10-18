@@ -55,10 +55,10 @@ export default async function CalendarPage() {
     <div className="space-y-6 max-w-7xl mx-auto">
       <div>
         <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-          Calendario Odontológico y Gestión de Citas
+          Calendario de Llamadas Estratégicas y Consultoría
         </h1>
         <p className="text-xs text-slate-500 mt-1">
-          Agenda de turnos con garantía de cero solapamiento mediante verificación transaccional atómica.
+          Agenda oficial de llamadas de valoración y consultoría con garantía matemática de cero colisiones.
         </p>
       </div>
 

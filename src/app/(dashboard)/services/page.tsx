@@ -18,10 +18,10 @@ export default async function ServicesPage() {
     <div className="space-y-6 max-w-7xl mx-auto">
       <div>
         <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-          Catálogo de Servicios y Precios
+          Catálogo de Servicios y Soluciones
         </h1>
         <p className="text-xs text-slate-500 mt-1">
-          Tratamientos odontológicos oficiales, duraciones y precios autorizados en USD ($).
+          Servicios oficiales de daniautoma (Agentes IA, n8n, desarrollo web y consultoría), duraciones y tarifas autorizadas en USD ($).
         </p>
       </div>
 

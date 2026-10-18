@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'CRM Clínica Dental Dra. Bianca | El Salvador',
-  description: 'Sistema integral de gestión operativa, agenda de citas odontológicas y WhatsApp multiagente con IA',
+  title: 'daniautoma | CRM & Asistente Virtual Oficial con IA',
+  description: 'Plataforma oficial de gestión operativa, llamadas de valoración estratégica y WhatsApp multiagente con IA de daniautoma',
 };
 
 export default function RootLayout({

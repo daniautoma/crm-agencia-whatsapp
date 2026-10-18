@@ -36,10 +36,10 @@ model Professional {
   id               String   @id @default(cuid())
   userId           String   @unique
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  specialty        String   // "Odontología General", "Ortodoncia", "Endodoncia", etc.
-  activeDays       String   @default("1,2,3,4,5,6") // Días laborales: 1=Lun ... 6=Sáb
+  specialty        String   // "Consultoría IA & Automatizaciones", "Desarrollo Web", etc.
+  activeDays       String   @default("1,2,3,4,5") // Días laborales: 1=Lun ... 5=Vie
   startHour        String   @default("08:00") // Formato 24h HH:mm
-  endHour          String   @default("17:00")
+  endHour          String   @default("18:00")
   lunchStart       String   @default("12:00")
   lunchEnd         String   @default("13:00")
   slotIntervalMin  Int      @default(30)
@@ -247,21 +247,21 @@ model Payment {
 }
 
 // -------------------------------------------------------------
-// CONFIGURACIÓN DE CLÍNICA Y CONTROL DE IA / WHATSAPP
+// CONFIGURACIÓN DE AGENCIA Y CONTROL DE IA / WHATSAPP
 // -------------------------------------------------------------
 model ClinicConfig {
   id                    String   @id @default("clinic_default")
-  clinicName            String   @default("Clínica Dental Dra. Bianca Hernández")
-  clinicAddress         String   @default("San Salvador, El Salvador")
-  clinicPhone           String   @default("+50322000000")
-  parkingInfo           String   @default("Parqueo privado gratuito para pacientes frente a la clínica.")
+  clinicName            String   @default("daniautoma (Agencia de Automatización e IA)")
+  clinicAddress         String   @default("San Salvador, El Salvador • Servicios Globales")
+  clinicPhone           String   @default("+50370000000")
+  parkingInfo           String   @default("Reuniones virtuales vía Google Meet / Zoom o presenciales previa cita.")
   holidaysJson          String   @default("[]") // Lista de fechas festivas YYYY-MM-DD
   
   // Parámetros de IA
   aiModel               String   @default("google/gemini-2.5-flash")
   aiTemperature         Float    @default(0.2)
   aiBufferSeconds       Int      @default(8)
-  aiSystemPrompt        String   @default("Eres el Asistente Virtual Oficial de la Clínica Dental Dra. Bianca Nathaly Hernández Flores en El Salvador. Eres cordial, profesional, hablas en español salvadoreño educado y ayudas a los pacientes con información de servicios y agendamiento.")
+  aiSystemPrompt        String   @default("Eres Esteban, el asistente virtual de daniautoma, una agencia experta en automatización con inteligencia artificial, agentes de WhatsApp y desarrollo web para negocios. Tu objetivo es saludar al cliente, explicar brevemente nuestros servicios, responder preguntas frecuentes sobre cómo la IA ayuda a conseguir más clientes y agendar una llamada de valoración estratégica de 30 minutos en nuestro calendario. Sé conciso y utiliza emojis de forma moderada. Si el usuario solicita hablar con una persona real o tiene un requerimiento técnico complejo, deriva la conversación inmediatamente a un agente humano.")
   aiIsGloballyActive    Boolean  @default(true)
 
   // Estado WhatsApp

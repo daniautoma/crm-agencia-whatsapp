@@ -159,23 +159,23 @@ export function PatientsManager({ initialPatients }: PatientsManagerProps) {
           className="px-3.5 py-2 text-xs font-semibold rounded-xl bg-brand-600 text-white hover:bg-brand-700 shadow-xs flex items-center gap-1.5 self-start sm:self-auto transition-colors"
         >
           <Plus className="w-3.5 h-3.5" />
-          Nuevo Paciente
+          Nuevo Cliente / Lead
         </button>
       </div>
 
-      {/* Tabla de Pacientes */}
+      {/* Tabla de Clientes */}
       <div className="bg-white rounded-2xl border border-slate-200 shadow-card overflow-hidden">
         <div className="p-4 border-b border-slate-100 flex items-center justify-between">
           <span className="text-xs font-medium text-slate-500">
             Mostrando <span className="font-bold text-slate-900">{filteredPatients.length}</span> de{' '}
-            <span className="font-bold text-slate-900">{patients.length}</span> pacientes
+            <span className="font-bold text-slate-900">{patients.length}</span> clientes
           </span>
         </div>
 
         {filteredPatients.length === 0 ? (
           <div className="p-12 text-center text-slate-400">
             <Users className="w-12 h-12 mx-auto mb-2 text-slate-300" />
-            <p className="text-sm font-semibold text-slate-700">No se encontraron pacientes</p>
+            <p className="text-sm font-semibold text-slate-700">No se encontraron clientes</p>
             <p className="text-xs text-slate-400 mt-1">Pruebe ajustando el término de búsqueda.</p>
           </div>
         ) : (
@@ -183,7 +183,7 @@ export function PatientsManager({ initialPatients }: PatientsManagerProps) {
             <table className="w-full text-left text-xs">
               <thead className="bg-slate-50 border-b border-slate-100 text-slate-500 uppercase font-semibold">
                 <tr>
-                  <th className="py-3 px-4">Paciente</th>
+                  <th className="py-3 px-4">Cliente / Lead</th>
                   <th className="py-3 px-4">Teléfono WhatsApp</th>
                   <th className="py-3 px-4">Etiquetas</th>
                   <th className="py-3 px-4">Citas</th>
@@ -252,7 +252,7 @@ export function PatientsManager({ initialPatients }: PatientsManagerProps) {
             <div className="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50">
               <div>
                 <h3 className="font-bold text-sm text-slate-900">
-                  {editingPatient ? 'Editar Ficha del Paciente' : 'Alta de Nuevo Paciente'}
+                  {editingPatient ? 'Editar Ficha del Cliente' : 'Alta de Nuevo Cliente / Lead'}
                 </h3>
                 <p className="text-xs text-slate-500">
                   Normalización con código de país de El Salvador (+503)
@@ -316,7 +316,7 @@ export function PatientsManager({ initialPatients }: PatientsManagerProps) {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="paciente@correo.com"
+                    placeholder="cliente@empresa.com"
                     className="w-full px-3 py-2 text-xs bg-slate-50 focus:bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 text-slate-900"
                   />
                 </div>
@@ -331,7 +331,7 @@ export function PatientsManager({ initialPatients }: PatientsManagerProps) {
                     type="text"
                     value={tags}
                     onChange={(e) => setTags(e.target.value)}
-                    placeholder="Nuevo, Ortodoncia, VIP"
+                    placeholder="Lead Calificado, WhatsApp IA, n8n"
                     className="w-full px-3 py-2 text-xs bg-slate-50 focus:bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 text-slate-900"
                   />
                 </div>
@@ -378,7 +378,7 @@ export function PatientsManager({ initialPatients }: PatientsManagerProps) {
                   disabled={isSubmitting}
                   className="px-4 py-2 text-xs font-semibold rounded-xl bg-brand-600 text-white hover:bg-brand-700 transition-colors shadow-xs disabled:opacity-60"
                 >
-                  {isSubmitting ? 'Guardando...' : editingPatient ? 'Actualizar Ficha' : 'Registrar Paciente'}
+                  {isSubmitting ? 'Guardando...' : editingPatient ? 'Actualizar Ficha' : 'Registrar Cliente'}
                 </button>
               </div>
             </form>
@@ -386,12 +386,12 @@ export function PatientsManager({ initialPatients }: PatientsManagerProps) {
         </div>
       )}
 
-      {/* Modal Ficha Completa del Paciente */}
+      {/* Modal Ficha Completa del Cliente */}
       {selectedPatientForDrawer && (
         <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-150">
             <div className="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-              <h3 className="font-bold text-sm text-slate-900">Ficha del Paciente</h3>
+              <h3 className="font-bold text-sm text-slate-900">Ficha del Cliente</h3>
               <button
                 onClick={() => setSelectedPatientForDrawer(null)}
                 className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-200/60"

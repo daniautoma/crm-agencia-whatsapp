@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 
 const SESSION_COOKIE_NAME = 'crm_session';
 const SECRET_KEY = new TextEncoder().encode(
-  process.env.JWT_SECRET || 'super-secret-key-clinica-bianca-el-salvador-2025-cambiar-en-produccion'
+  process.env.JWT_SECRET || 'super-secret-key-daniautoma-el-salvador-2025-cambiar-en-produccion'
 );
 
 export interface SessionPayload {

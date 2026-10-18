@@ -25,7 +25,7 @@ export default async function WaitingListPage() {
             Lista de Espera y Cancelaciones
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Pacientes interesados en citas tempranas ante la liberación de espacios en el calendario.
+            Clientes y prospectos interesados en llamadas anticipadas ante la liberación de espacios en la agenda.
           </p>
         </div>
 
@@ -39,9 +39,9 @@ export default async function WaitingListPage() {
         {waitingItems.length === 0 ? (
           <div className="py-12 text-center">
             <Clock className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-            <p className="text-sm font-semibold text-slate-700">No hay pacientes en lista de espera</p>
+            <p className="text-sm font-semibold text-slate-700">No hay clientes en lista de espera</p>
             <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto">
-              Cuando un paciente solicite un espacio anticipado o haya cancelaciones, se podrán asignar turnos desde aquí.
+              Cuando un cliente solicite un espacio anticipado o haya cancelaciones de llamadas, se podrán asignar turnos desde aquí.
             </p>
           </div>
         ) : (
