@@ -2,7 +2,7 @@
 # Dockerfile para Dokploy - CRM daniautoma AI & WhatsApp
 # ========================================================
 
-FROM node:20-alpine AS runner
+FROM node:22-alpine AS runner
 
 WORKDIR /app
 
@@ -13,8 +13,8 @@ RUN apk add --no-cache openssl libc6-compat
 COPY package*.json ./
 COPY prisma ./prisma/
 
-# Instalar dependencias limpias y generar cliente de Prisma
-RUN npm ci
+# Instalar dependencias y generar cliente de Prisma
+RUN npm install
 RUN npx prisma generate
 
 # Copiar el código fuente completo
