@@ -28,7 +28,7 @@ ENV NODE_ENV=production
 RUN npm run build
 
 # Crear directorios para persistencia de datos (Volúmenes en Dokploy)
-RUN mkdir -p /app/baileys_auth
+RUN mkdir -p /app/baileys_auth /app/data
 
 # Exponer el puerto oficial
 EXPOSE 3000
@@ -36,5 +36,5 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Al arrancar el contenedor: sincronizar base de datos y levantar Next.js
-CMD ["sh", "-c", "npx prisma db push && npm run start"]
+# Al arrancar el contenedor: sincronizar base de datos, ejecutar seed si es necesario y levantar Next.js
+CMD ["sh", "-c", "npx prisma db push && npm run seed && npm run start"]
