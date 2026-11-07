@@ -55,10 +55,10 @@ export default async function CalendarPage() {
     <div className="space-y-6 max-w-7xl mx-auto">
       <div>
         <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-          Calendario de Llamadas Estratégicas y Consultoría
+          Calendario de Llamadas de Valoración Estratégica
         </h1>
         <p className="text-xs text-slate-500 mt-1">
-          Agenda oficial de llamadas de valoración y consultoría con garantía matemática de cero colisiones.
+          Agenda de llamadas y valoraciones de daniautoma con garantía de cero solapamiento mediante verificación transaccional atómica.
         </p>
       </div>
 

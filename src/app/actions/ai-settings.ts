@@ -20,7 +20,7 @@ export async function updateAiConfigAction(formData: {
 }) {
   await requireRole(['ADMIN']);
 
-  const updateData: any = {};
+  const updateData: Record<string, unknown> = {};
   if (formData.aiModel) updateData.aiModel = formData.aiModel;
   if (formData.aiTemperature !== undefined) updateData.aiTemperature = formData.aiTemperature;
   if (formData.aiBufferSeconds !== undefined) updateData.aiBufferSeconds = formData.aiBufferSeconds;
@@ -66,8 +66,8 @@ export async function updateAiConfigAction(formData: {
 
 export interface SimulationToolCallResult {
   toolName: string;
-  args: Record<string, any>;
-  result: any;
+  args: Record<string, unknown>;
+  result: unknown;
 }
 
 export interface SimulationResponse {
@@ -175,13 +175,14 @@ export async function simulateAiMessageAction(
       toolsTriggered,
       latencyMs,
     };
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error('Error en simulación de IA:', err);
+    const errMessage = err instanceof Error ? err.message : String(err);
     return {
-      reply: `❌ Error al conectar con OpenRouter (${err.message})`,
+      reply: `❌ Error al conectar con OpenRouter (${errMessage})`,
       toolsTriggered,
       latencyMs: Date.now() - startTime,
-      error: err.message,
+      error: errMessage,
     };
   }
 }

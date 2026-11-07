@@ -179,7 +179,7 @@ async function processBufferedMessages(conversationId: string, patientPhone: str
           conversationId,
           text: finalAnswer,
           senderType: "AI",
-          senderName: "Esteban (daniautoma)",
+          senderName: "Esteban (Asistente daniautoma)",
           status: "DELIVERED",
         },
       });
@@ -213,7 +213,7 @@ async function processBufferedMessages(conversationId: string, patientPhone: str
         lastMessageAt: new Date(),
       });
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("[AI AGENT ERROR]:", err);
   }
 }

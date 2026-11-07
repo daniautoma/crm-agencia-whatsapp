@@ -10,13 +10,13 @@ export const AI_TOOLS: ChatCompletionTool[] = [
     type: "function",
     function: {
       name: "consultar_servicios_precios",
-      description: "Consulta el catálogo de soluciones y servicios de la agencia daniautoma (Agentes de WhatsApp IA, automatizaciones con n8n, landing pages, consultoría estratégica) con sus precios oficiales en USD y duración de llamada de valoración.",
+      description: "Consulta el catálogo de soluciones y servicios de automatización e inteligencia artificial de daniautoma (agentes de WhatsApp, widgets omnicanal, flujos n8n y landing pages).",
       parameters: {
         type: "object",
         properties: {
           categoria: {
             type: "string",
-            description: "Categoría opcional: 'Agentes IA', 'Automatización', 'Desarrollo Web', 'Consultoría'.",
+            description: "Categoría opcional: 'Agentes de IA', 'Omnicanalidad', 'Automatización', 'Desarrollo Web'.",
           },
         },
       },
@@ -26,7 +26,7 @@ export const AI_TOOLS: ChatCompletionTool[] = [
     type: "function",
     function: {
       name: "consultar_disponibilidad",
-      description: "Consulta los horarios libres disponibles de la agencia para una fecha específica (formato YYYY-MM-DD). Permite al cliente conocer qué horas están desocupadas para agendar su llamada de valoración estratégica de 30 minutos.",
+      description: "Consulta los horarios libres disponibles para agendar una llamada de valoración estratégica de 30 minutos para una fecha específica (formato YYYY-MM-DD). Permite al cliente saber qué espacios están desocupados.",
       parameters: {
         type: "object",
         properties: {
@@ -34,9 +34,13 @@ export const AI_TOOLS: ChatCompletionTool[] = [
             type: "string",
             description: "Fecha en formato ISO YYYY-MM-DD (por ejemplo: '2025-10-20').",
           },
-          dentistaId: {
+          especialistaId: {
             type: "string",
             description: "ID opcional del consultor o especialista asignado.",
+          },
+          dentistaId: {
+            type: "string",
+            description: "Alias compatible para ID del consultor.",
           },
         },
         required: ["fecha"],
@@ -47,21 +51,21 @@ export const AI_TOOLS: ChatCompletionTool[] = [
     type: "function",
     function: {
       name: "reservar_cita",
-      description: "Reserva formalmente una llamada de valoración estratégica en el calendario garantizando matemáticamente que no existan colisiones. Requiere haber obtenido confirmación explícita del cliente.",
+      description: "Reserva formalmente una Llamada de Valoración Estratégica de 30 minutos en el calendario garantizando matemáticamente que no existan colisiones. Requiere haber obtenido confirmación explícita del cliente.",
       parameters: {
         type: "object",
         properties: {
           pacienteTelefono: {
             type: "string",
-            description: "Número de WhatsApp o teléfono del cliente (ej: '+50371234567').",
+            description: "Número de WhatsApp o teléfono del cliente con código de país (ej: '+50371234567').",
           },
           pacienteNombre: {
             type: "string",
-            description: "Nombre completo del cliente o contacto.",
+            description: "Nombre completo del cliente o empresa.",
           },
           servicioId: {
             type: "string",
-            description: "ID del servicio de interés (obtenido de consultar_servicios_precios).",
+            description: "ID del servicio o solución seleccionada (obtenido de consultar_servicios_precios).",
           },
           fechaHoraInicio: {
             type: "string",
@@ -69,11 +73,15 @@ export const AI_TOOLS: ChatCompletionTool[] = [
           },
           motivo: {
             type: "string",
-            description: "Motivo breve de la consulta, requerimiento técnico o notas del negocio.",
+            description: "Objetivo o detalles de la automatización que busca el cliente.",
           },
           dentistaId: {
             type: "string",
-            description: "ID del consultor asignado (opcional, asigna al consultor principal por defecto).",
+            description: "ID opcional del consultor asignado.",
+          },
+          especialistaId: {
+            type: "string",
+            description: "ID opcional del especialista o consultor.",
           },
         },
         required: ["pacienteTelefono", "pacienteNombre", "servicioId", "fechaHoraInicio"],
@@ -84,13 +92,13 @@ export const AI_TOOLS: ChatCompletionTool[] = [
     type: "function",
     function: {
       name: "consultar_mis_citas",
-      description: "Consulta las llamadas o reuniones agendadas de un cliente a partir de su número de teléfono de WhatsApp.",
+      description: "Consulta las llamadas de valoración estratégica agendadas o pendientes de un cliente a partir de su número de WhatsApp.",
       parameters: {
         type: "object",
         properties: {
           pacienteTelefono: {
             type: "string",
-            description: "Número de teléfono del cliente (ej: '+50371234567').",
+            description: "Número de teléfono o WhatsApp del cliente.",
           },
         },
         required: ["pacienteTelefono"],
@@ -101,13 +109,13 @@ export const AI_TOOLS: ChatCompletionTool[] = [
     type: "function",
     function: {
       name: "reprogramar_cita",
-      description: "Mueve una llamada de valoración existente a una nueva fecha y hora siempre que el nuevo horario esté completamente libre.",
+      description: "Mueve una llamada de valoración estratégica existente a una nueva fecha y hora siempre que el nuevo horario esté completamente libre.",
       parameters: {
         type: "object",
         properties: {
           citaId: {
             type: "string",
-            description: "ID único de la llamada o cita a reprogramar.",
+            description: "ID único de la llamada de valoración a reprogramar.",
           },
           nuevaFechaHoraInicio: {
             type: "string",
@@ -122,13 +130,13 @@ export const AI_TOOLS: ChatCompletionTool[] = [
     type: "function",
     function: {
       name: "cancelar_cita",
-      description: "Cancela una llamada agendada liberando el espacio en el calendario de la agencia.",
+      description: "Cancela una llamada de valoración estratégica agendada liberando el espacio para otros clientes.",
       parameters: {
         type: "object",
         properties: {
           citaId: {
             type: "string",
-            description: "ID de la cita o llamada a cancelar.",
+            description: "ID de la llamada a cancelar.",
           },
           motivo: {
             type: "string",
@@ -143,18 +151,18 @@ export const AI_TOOLS: ChatCompletionTool[] = [
     type: "function",
     function: {
       name: "escalar_a_humano",
-      description: "Pausa el asistente de IA y transfiere la conversación inmediatamente a un asesor o consultor humano de daniautoma ante un requerimiento complejo o solicitud directa.",
+      description: "Pausa el asistente de IA y transfiere la conversación inmediatamente al equipo de operaciones o a Daniel cuando el cliente solicita hablar con una persona o requiere una propuesta a medida.",
       parameters: {
         type: "object",
         properties: {
           motivo: {
             type: "string",
-            description: "Razón del escalamiento (ej: 'Solicita hablar con un asesor', 'Proyecto a medida de alta complejidad').",
+            description: "Razón de la transferencia (ej: 'Solicitud de atención humana', 'Proyecto de automatización complejo con ERP a medida').",
           },
           urgencia: {
             type: "string",
             enum: ["baja", "media", "alta"],
-            description: "Nivel de urgencia detectado.",
+            description: "Nivel de urgencia o prioridad detectado.",
           },
         },
         required: ["motivo", "urgencia"],
@@ -174,8 +182,8 @@ export async function executeAiTool(
   try {
     switch (toolName) {
       case "consultar_servicios_precios": {
-        const where: any = { isActive: true };
-        if (args.categoria) {
+        const where: { isActive: boolean; category?: { contains: string } } = { isActive: true };
+        if (args.categoria && typeof args.categoria === 'string') {
           where.category = { contains: args.categoria };
         }
         const services = await prisma.service.findMany({
@@ -199,8 +207,8 @@ export async function executeAiTool(
             nombre: s.name,
             categoria: s.category,
             duracionMinutos: s.durationMinutes,
-            precio: `$${s.price.toFixed(2)}${s.isPriceVariable ? ' (Precio base variable)' : ''}`,
-            descripcion: s.description || "Atención odontológica integral",
+            precio: s.price === 0 ? "Gratuito (Llamada de Valoración de 30 min)" : `$${s.price.toFixed(2)}${s.isPriceVariable ? ' (Cotización personalizada)' : ''}`,
+            descripcion: s.description || "Solución tecnológica de daniautoma",
           })),
         };
       }
@@ -210,25 +218,31 @@ export async function executeAiTool(
         const dayStart = startOfDay(targetDate);
         const dayEnd = endOfDay(targetDate);
 
-        let dentistUser = null;
-        if (args.dentistaId) {
-          dentistUser = await prisma.user.findUnique({
-            where: { id: args.dentistaId },
+        const specialistId = args.especialistaId || args.dentistaId;
+        let specialistUser = null;
+        if (specialistId) {
+          specialistUser = await prisma.user.findUnique({
+            where: { id: specialistId },
           });
         } else {
-          dentistUser = await prisma.user.findFirst({
+          specialistUser = await prisma.user.findFirst({
             where: { role: "DENTIST" },
           });
+          if (!specialistUser) {
+            specialistUser = await prisma.user.findFirst({
+              where: { role: "ADMIN" },
+            });
+          }
         }
 
-        if (!dentistUser) {
-          return { success: false, error: "No hay odontólogos registrados en el sistema." };
+        if (!specialistUser) {
+          return { success: false, error: "No hay consultores registrados en la agenda del sistema." };
         }
 
         // Obtener citas ya agendadas ese día
         const existingAppointments = await prisma.appointment.findMany({
           where: {
-            professionalId: dentistUser.id,
+            professionalId: specialistUser.id,
             startTime: { gte: dayStart, lte: dayEnd },
             status: { notIn: ["CANCELLED", "NO_SHOW"] },
           },
@@ -236,14 +250,14 @@ export async function executeAiTool(
         });
 
         const startHour = 8;
-        const endHour = 18; // Horario daniautoma: 08:00 a 18:00
-        const slotInterval = 30; // 30 minutos (1 llamada por bloque)
+        const endHour = 18;
+        const slotInterval = 30; // 30 minutos
 
         const availableSlots: string[] = [];
         const now = new Date();
 
         for (let hour = startHour; hour < endHour; hour++) {
-          if (hour === 12) continue; // Almuerzo
+          if (hour === 12) continue; // Receso
 
           for (let minute = 0; minute < 60; minute += slotInterval) {
             const slotStart = new Date(targetDate);
@@ -268,7 +282,7 @@ export async function executeAiTool(
           success: true,
           data: {
             fecha: format(targetDate, "yyyy-MM-dd"),
-            consultor: dentistUser.name,
+            consultor: specialistUser.name,
             totalHorariosLibres: availableSlots.length,
             horariosDisponibles: availableSlots,
           },
@@ -276,11 +290,12 @@ export async function executeAiTool(
       }
 
       case "reservar_cita": {
-        const { pacienteTelefono, pacienteNombre, servicioId, fechaHoraInicio, motivo, dentistaId } = args;
+        const { pacienteTelefono, pacienteNombre, servicioId, fechaHoraInicio, motivo } = args;
+        const specialistParam = args.especialistaId || args.dentistaId;
 
         // Limpiar número y buscar por phoneNormalized
-        const digits = pacienteTelefono.replace(/\D/g, "");
-        const phoneNormalized = digits.startsWith("503") ? `+${digits}` : `+503${digits}`;
+        const digits = String(pacienteTelefono).replace(/\D/g, "");
+        const phoneNormalized = digits.startsWith("503") ? `+${digits}` : (digits.length === 8 ? `+503${digits}` : `+${digits}`);
 
         let patient = await prisma.patient.findUnique({
           where: { phoneNormalized },
@@ -291,39 +306,56 @@ export async function executeAiTool(
             data: {
               fullName: pacienteNombre,
               phoneNormalized,
-              tags: "Nuevo,WhatsApp,IA",
-              generalNotes: "Registrado automáticamente por el Asistente Virtual de WhatsApp.",
+              tags: "Nuevo,WhatsApp,IA,Lead",
+              generalNotes: "Lead registrado automáticamente por Esteban (Asistente Virtual de daniautoma).",
             },
           });
         }
 
-        const service = await prisma.service.findUnique({
+        // Buscar servicio por id o nombre parcial
+        let service = await prisma.service.findUnique({
           where: { id: servicioId },
         });
 
         if (!service) {
-          return { success: false, error: "El servicio solicitado no existe en el catálogo." };
+          service = await prisma.service.findFirst({
+            where: {
+              OR: [
+                { name: { contains: servicioId } },
+                { isActive: true },
+              ],
+            },
+          });
         }
 
-        let dentist = null;
-        if (dentistaId) {
-          dentist = await prisma.user.findUnique({ where: { id: dentistaId } });
-        } else {
-          dentist = await prisma.user.findFirst({ where: { role: "DENTIST" } });
+        if (!service) {
+          return { success: false, error: "El servicio solicitado no existe en el catálogo de daniautoma." };
         }
 
-        if (!dentist) {
-          return { success: false, error: "No hay consultor disponible para asignar." };
+        let specialist = null;
+        if (specialistParam) {
+          specialist = await prisma.user.findUnique({ where: { id: specialistParam } });
+        }
+        if (!specialist) {
+          specialist = await prisma.user.findFirst({ where: { role: "DENTIST" } });
+        }
+        if (!specialist) {
+          specialist = await prisma.user.findFirst({ where: { role: "ADMIN" } });
+        }
+
+        if (!specialist) {
+          return { success: false, error: "No hay consultor disponible para asignar la llamada." };
         }
 
         const start = parseISO(fechaHoraInicio);
-        const end = addMinutes(start, service.durationMinutes || 30);
+        const duration = service.durationMinutes || 30;
+        const end = addMinutes(start, duration);
 
         // Transacción atómica anti-colisiones (Zero Double-Booking)
         const newAppointment = await prisma.$transaction(async (tx) => {
           const overlap = await tx.appointment.findFirst({
             where: {
-              professionalId: dentist.id,
+              professionalId: specialist.id,
               status: { notIn: ["CANCELLED", "NO_SHOW"] },
               AND: [
                 { startTime: { lt: end } },
@@ -339,13 +371,13 @@ export async function executeAiTool(
           return await tx.appointment.create({
             data: {
               patientId: patient.id,
-              professionalId: dentist.id,
+              professionalId: specialist.id,
               serviceId: service.id,
               startTime: start,
               endTime: end,
               status: "CONFIRMED",
               origin: "WHATSAPP_AI",
-              adminNotes: motivo ? `[IA]: ${motivo}` : `[IA]: Agendado por Asistente Virtual`,
+              adminNotes: motivo ? `[Esteban IA]: ${motivo}` : `[Esteban IA]: Llamada de Valoración Estratégica agendada`,
             },
             include: {
               patient: true,
@@ -362,17 +394,18 @@ export async function executeAiTool(
             cliente: newAppointment.patient.fullName,
             consultor: newAppointment.professional.name,
             servicio: newAppointment.service.name,
+            duracionMinutos: duration,
             fecha: format(new Date(newAppointment.startTime), "yyyy-MM-dd"),
             hora: format(new Date(newAppointment.startTime), "hh:mm a"),
             estado: newAppointment.status,
-            mensaje: "¡Llamada de valoración agendada con éxito!",
+            mensaje: "¡Llamada de valoración estratégica reservada con éxito en Google Meet / calendario sin solapamientos!",
           },
         };
       }
 
       case "consultar_mis_citas": {
         const phone = (args.pacienteTelefono || context.patientPhone || "").replace(/\D/g, "");
-        const phoneNormalized = phone.startsWith("503") ? `+${phone}` : `+503${phone}`;
+        const phoneNormalized = phone.startsWith("503") ? `+${phone}` : (phone.length === 8 ? `+503${phone}` : `+${phone}`);
 
         const patient = await prisma.patient.findFirst({
           where: {
@@ -396,18 +429,18 @@ export async function executeAiTool(
         if (!patient || patient.appointments.length === 0) {
           return {
             success: true,
-            data: { mensaje: "No tienes citas activas o futuras registradas en nuestro sistema." },
+            data: { mensaje: "No tienes llamadas de valoración activas o futuras registradas en nuestro sistema." },
           };
         }
 
         return {
           success: true,
           data: {
-            paciente: patient.fullName,
-            citas: patient.appointments.map((a) => ({
+            cliente: patient.fullName,
+            llamadas: patient.appointments.map((a) => ({
               citaId: a.id,
               servicio: a.service.name,
-              odontologo: a.professional.name,
+              consultor: a.professional.name,
               fechaHora: format(new Date(a.startTime), "yyyy-MM-dd hh:mm a"),
               estado: a.status,
             })),
@@ -423,7 +456,7 @@ export async function executeAiTool(
         });
 
         if (!currentApt) {
-          return { success: false, error: "La cita indicada no existe." };
+          return { success: false, error: "La llamada o cita indicada no existe." };
         }
 
         const newStart = parseISO(nuevaFechaHoraInicio);
@@ -453,7 +486,7 @@ export async function executeAiTool(
               startTime: newStart,
               endTime: newEnd,
               status: "CONFIRMED",
-              adminNotes: `${currentApt.adminNotes || ""} [Reprogramada por IA al ${format(newStart, "yyyy-MM-dd HH:mm")}]`,
+              adminNotes: `${currentApt.adminNotes || ""} [Reprogramada por Esteban al ${format(newStart, "yyyy-MM-dd HH:mm")}]`,
             },
           });
         });
@@ -464,7 +497,7 @@ export async function executeAiTool(
             citaId: updated.id,
             nuevaFecha: format(new Date(updated.startTime), "yyyy-MM-dd"),
             nuevaHora: format(new Date(updated.startTime), "hh:mm a"),
-            mensaje: "Cita reprogramada con éxito.",
+            mensaje: "Llamada de valoración estratégica reprogramada con éxito.",
           },
         };
       }
@@ -475,7 +508,7 @@ export async function executeAiTool(
           where: { id: citaId },
           data: {
             status: "CANCELLED",
-            cancelReason: motivo || "Cancelada por paciente vía WhatsApp IA",
+            cancelReason: motivo || "Cancelada por el cliente vía WhatsApp IA",
           },
         });
 
@@ -483,7 +516,7 @@ export async function executeAiTool(
           success: true,
           data: {
             citaId: apt.id,
-            mensaje: "La cita ha sido cancelada satisfactoriamente y el horario quedó disponible.",
+            mensaje: "La llamada de valoración estratégica ha sido cancelada satisfactoriamente y el horario quedó disponible.",
           },
         };
       }
@@ -491,7 +524,6 @@ export async function executeAiTool(
       case "escalar_a_humano": {
         const { motivo, urgencia } = args;
         if (context.conversationId) {
-          // Obtener usuario admin o el primer usuario del sistema para asignar la nota
           const adminUser = await prisma.user.findFirst({
             where: { role: "ADMIN" },
           });
@@ -511,7 +543,7 @@ export async function executeAiTool(
               data: {
                 conversationId: context.conversationId,
                 userId: adminUser.id,
-                content: `🚨 [ESCALACIÓN AUTOMÁTICA DE IA - Urgencia: ${urgencia.toUpperCase()}]: ${motivo}`,
+                content: `🚨 [ESCALACIÓN A ASESOR HUMANO - Urgencia: ${String(urgencia).toUpperCase()}]: ${motivo}`,
               },
             });
           }
@@ -520,7 +552,7 @@ export async function executeAiTool(
         return {
           success: true,
           data: {
-            mensaje: "La conversación fue pausada para la IA y transferida prioritariamente al equipo humano.",
+            mensaje: "La conversación fue pausada para Esteban y transferida prioritariamente a un asesor humano de daniautoma.",
             urgencia,
           },
         };
@@ -529,7 +561,8 @@ export async function executeAiTool(
       default:
         return { success: false, error: `Herramienta desconocida: ${toolName}` };
     }
-  } catch (err: any) {
-    return { success: false, error: err.message || "Error al ejecutar herramienta de la agencia." };
+  } catch (err: unknown) {
+    const errorMsg = err instanceof Error ? err.message : "Error al ejecutar herramienta de asistencia.";
+    return { success: false, error: errorMsg };
   }
 }

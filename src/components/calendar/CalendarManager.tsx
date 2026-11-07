@@ -429,9 +429,9 @@ export function CalendarManager({
                 <thead className="bg-slate-50 border-b border-slate-100 text-slate-500 uppercase font-semibold">
                   <tr>
                     <th className="py-3 px-4">Fecha & Hora</th>
-                    <th className="py-3 px-4">Paciente</th>
-                    <th className="py-3 px-4">Tratamiento</th>
-                    <th className="py-3 px-4">Odontólogo/a</th>
+                    <th className="py-3 px-4">Cliente / Lead</th>
+                    <th className="py-3 px-4">Servicio / Solución</th>
+                    <th className="py-3 px-4">Consultor Asignado</th>
                     <th className="py-3 px-4">Origen</th>
                     <th className="py-3 px-4">Estado</th>
                     <th className="py-3 px-4 text-right">Acción</th>
@@ -499,7 +499,7 @@ export function CalendarManager({
           <div className="bg-white rounded-2xl shadow-xl border border-slate-200 w-full max-w-lg overflow-hidden animate-in fade-in zoom-in-95 duration-150">
             <div className="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50">
               <div>
-                <h3 className="font-bold text-sm text-slate-900">Agendar Cita Odontológica</h3>
+                <h3 className="font-bold text-sm text-slate-900">Agendar Llamada de Valoración</h3>
                 <p className="text-xs text-slate-500">
                   Verificación de solapamiento transaccional en tiempo real
                 </p>
@@ -524,10 +524,10 @@ export function CalendarManager({
             )}
 
             <form onSubmit={handleCreateAppointment} className="p-5 space-y-4">
-              {/* Paciente */}
+              {/* Cliente */}
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Paciente *
+                  Cliente / Lead *
                 </label>
                 <select
                   required
@@ -535,7 +535,7 @@ export function CalendarManager({
                   onChange={(e) => setSelectedPatientId(e.target.value)}
                   className="w-full px-3 py-2 text-xs bg-slate-50 focus:bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 text-slate-900 font-medium"
                 >
-                  <option value="">Seleccione un paciente registrado...</option>
+                  <option value="">Seleccione un cliente registrado...</option>
                   {patients.map((p) => (
                     <option key={p.id} value={p.id}>
                       {p.fullName} ({formatSVPhone(p.phoneNormalized)})
@@ -547,7 +547,7 @@ export function CalendarManager({
               {/* Tratamiento / Servicio */}
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Tratamiento / Servicio Odontológico *
+                  Solución / Servicio *
                 </label>
                 <select
                   required
@@ -557,13 +557,13 @@ export function CalendarManager({
                 >
                   {services.map((s) => (
                     <option key={s.id} value={s.id}>
-                      {s.name} — {s.durationMinutes} min ({formatUSD(s.price)})
+                      {s.name} — {s.durationMinutes} min ({s.price === 0 ? 'Gratuito' : formatUSD(s.price)})
                     </option>
                   ))}
                 </select>
               </div>
 
-              {/* Odontólogo Asignado */}
+              {/* Consultor Asignado */}
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
                   Consultor Asignado *
@@ -682,11 +682,11 @@ export function CalendarManager({
             <div className="p-5 space-y-4">
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2 text-xs">
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Paciente:</span>
+                  <span className="text-slate-400">Cliente:</span>
                   <span className="font-bold text-slate-900">{selectedAppointment.patient.fullName}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Tratamiento:</span>
+                  <span className="text-slate-400">Servicio:</span>
                   <span className="font-semibold text-slate-800">{selectedAppointment.service.name}</span>
                 </div>
                 <div className="flex justify-between">
@@ -696,7 +696,7 @@ export function CalendarManager({
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-slate-400">Odontólogo:</span>
+                  <span className="text-slate-400">Consultor:</span>
                   <span className="text-slate-800">{selectedAppointment.professional.name}</span>
                 </div>
                 <div className="flex justify-between items-center pt-1 border-t border-slate-200">

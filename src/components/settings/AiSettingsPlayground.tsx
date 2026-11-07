@@ -45,7 +45,7 @@ export function AiSettingsPlayground({ initialConfig, hasApiKey }: AiSettingsPla
   >([
     {
       role: 'assistant',
-      content: '¡Hola! Soy Esteban, Asistente Virtual Oficial de daniautoma. ¿En qué puedo ayudarte hoy?',
+      content: '¡Hola! Soy Esteban, el Asistente Virtual oficial de daniautoma. ¿En qué solución de automatización o IA te podemos ayudar hoy?',
     },
   ]);
   const [inputMessage, setInputMessage] = useState('');
@@ -66,8 +66,8 @@ export function AiSettingsPlayground({ initialConfig, hasApiKey }: AiSettingsPla
       setSaveMessage('✅ Configuración y API Key guardadas con éxito.');
       if (apiKey) setApiKey('');
       setTimeout(() => setSaveMessage(null), 4000);
-    } catch (err: any) {
-      setSaveMessage(`❌ Error: ${err.message}`);
+    } catch (err: unknown) {
+      setSaveMessage(`❌ Error: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setIsSaving(false);
     }
@@ -101,12 +101,12 @@ export function AiSettingsPlayground({ initialConfig, hasApiKey }: AiSettingsPla
           latencyMs: res.latencyMs,
         },
       ]);
-    } catch (err: any) {
+    } catch (err: unknown) {
       setChatMessages((prev) => [
         ...prev,
         {
           role: 'assistant',
-          content: `❌ Error al conectar con OpenRouter: ${err.message}`,
+          content: `❌ Error al conectar con OpenRouter: ${err instanceof Error ? err.message : String(err)}`,
         },
       ]);
     } finally {
@@ -115,10 +115,10 @@ export function AiSettingsPlayground({ initialConfig, hasApiKey }: AiSettingsPla
   };
 
   const quickPrompts = [
-    { label: '💰 Precios limpieza', text: 'Hola, ¿cuánto cuesta una limpieza dental y qué incluye?' },
-    { label: '📅 Horarios libres', text: '¿Qué horarios tienen disponibles para consulta este próximo sábado?' },
-    { label: '🚨 Caso de urgencia', text: '¡Ayuda! Me caí en bicicleta, se me quebró un diente y estoy sangrando mucho con dolor insoportable.' },
-    { label: '💊 Receta medicamento', text: 'Tengo dolor en una muela, ¿qué antibiótico me recomiendan tomar antes de ir?' },
+    { label: '🤖 Agente WhatsApp', text: 'Hola, ¿cómo funciona el agente de WhatsApp con IA para calificar prospectos?' },
+    { label: '⚡ Flujos n8n', text: '¿Qué tipo de integraciones pueden automatizar con n8n, webhooks y Google Sheets?' },
+    { label: '📅 Agendar Valoración', text: 'Quiero agendar una llamada de valoración estratégica de 30 minutos para esta semana.' },
+    { label: '👤 Asesor humano', text: 'Me gustaría hablar con Daniel o un consultor humano para un proyecto personalizado.' },
   ];
 
   return (
@@ -269,7 +269,7 @@ export function AiSettingsPlayground({ initialConfig, hasApiKey }: AiSettingsPla
           </div>
         </div>
 
-        {/* COLUMNA 2: Simulador de Pruebas Clínicas en Vivo (7 cols) */}
+        {/* COLUMNA 2: Simulador de Pruebas de daniautoma en Vivo (7 cols) */}
         <div className="xl:col-span-7 bg-white rounded-2xl border border-slate-200 shadow-card p-6 flex flex-col h-[750px]">
           <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
             <div className="flex items-center gap-2">
@@ -277,7 +277,7 @@ export function AiSettingsPlayground({ initialConfig, hasApiKey }: AiSettingsPla
                 <Sparkles className="w-4 h-4" />
               </div>
               <div>
-                <h3 className="font-bold text-sm text-slate-900">Simulador de Agente IA (Playground)</h3>
+                <h3 className="font-bold text-sm text-slate-900">Simulador de Esteban (Playground)</h3>
                 <p className="text-[11px] text-slate-500">Prueba el comportamiento del agente y la ejecución de herramientas</p>
               </div>
             </div>
@@ -288,7 +288,7 @@ export function AiSettingsPlayground({ initialConfig, hasApiKey }: AiSettingsPla
                 setChatMessages([
                   {
                     role: 'assistant',
-                    content: '¡Hola! Soy Esteban, Asistente Virtual Oficial de daniautoma. ¿En qué puedo ayudarte hoy?',
+                    content: '¡Hola! Soy Esteban, el Asistente Virtual oficial de daniautoma. ¿En qué solución de automatización o IA te podemos ayudar hoy?',
                   },
                 ])
               }
@@ -323,7 +323,7 @@ export function AiSettingsPlayground({ initialConfig, hasApiKey }: AiSettingsPla
               >
                 {msg.role === 'assistant' && (
                   <div className="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center shrink-0 text-xs font-bold">
-                    B
+                    E
                   </div>
                 )}
 
@@ -379,7 +379,7 @@ export function AiSettingsPlayground({ initialConfig, hasApiKey }: AiSettingsPla
                 <div className="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center shrink-0 text-xs font-bold animate-pulse">
                   E
                 </div>
-                <span>Esteban (IA) está pensando y verificando disponibilidad de llamadas...</span>
+                <span>Esteban (IA) está analizando la solicitud y verificando agenda...</span>
               </div>
             )}
           </div>
@@ -395,7 +395,7 @@ export function AiSettingsPlayground({ initialConfig, hasApiKey }: AiSettingsPla
             >
               <input
                 type="text"
-                placeholder="Escribe un mensaje de cliente para probar a Esteban..."
+                placeholder="Escribe un mensaje de paciente para probar el agente..."
                 value={inputMessage}
                 disabled={isSimulating}
                 onChange={(e) => setInputMessage(e.target.value)}

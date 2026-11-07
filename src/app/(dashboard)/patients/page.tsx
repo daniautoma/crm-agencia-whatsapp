@@ -24,7 +24,7 @@ export default async function PatientsPage() {
           Directorio de Clientes & Leads
         </h1>
         <p className="text-xs text-slate-500 mt-1">
-          Gestión integral de clientes y prospectos de la agencia con normalización telefónica (+503 El Salvador) y seguimiento comercial.
+          Gestión integral de clientes y prospectos con normalización telefónica y seguimiento en WhatsApp.
         </p>
       </div>
 

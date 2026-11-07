@@ -155,10 +155,10 @@ export default async function DashboardPage() {
           </p>
         </div>
 
-        {/* Métrica 2: Pacientes Totales */}
+        {/* Métrica 2: Clientes & Leads Totales */}
         <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-card hover:shadow-card-hover transition-shadow">
           <div className="flex items-center justify-between text-slate-500 text-xs font-medium">
-            <span>Directorio de Pacientes</span>
+            <span>Directorio de Clientes & Leads</span>
             <div className="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center">
               <Users className="w-4 h-4" />
             </div>
@@ -333,9 +333,9 @@ export default async function DashboardPage() {
               <thead className="bg-slate-50 border-b border-slate-100 text-slate-500 uppercase font-semibold">
                 <tr>
                   <th className="py-3 px-4">Hora</th>
-                  <th className="py-3 px-4">Paciente</th>
-                  <th className="py-3 px-4">Tratamiento</th>
-                  <th className="py-3 px-4">Odontólogo/a</th>
+                  <th className="py-3 px-4">Cliente / Lead</th>
+                  <th className="py-3 px-4">Servicio / Solución</th>
+                  <th className="py-3 px-4">Consultor Asignado</th>
                   <th className="py-3 px-4">Origen</th>
                   <th className="py-3 px-4">Estado</th>
                 </tr>

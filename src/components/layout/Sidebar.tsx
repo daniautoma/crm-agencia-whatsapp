@@ -9,11 +9,9 @@ import {
   Users,
   MessageSquare,
   Sparkles,
-  Clock,
   Settings,
   LogOut,
   Radio,
-  Zap,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { logoutAction } from '@/app/actions/auth';
@@ -40,22 +38,15 @@ export function Sidebar({ user, unreadChatsCount = 0, whatsappStatus = 'DISCONNE
       roles: ['ADMIN', 'RECEPTIONIST', 'DENTIST'],
     },
     {
-      name: 'Calendario de Llamadas',
-      href: '/calendar',
-      icon: Calendar,
-      roles: ['ADMIN', 'RECEPTIONIST', 'DENTIST'],
-    },
-    {
       name: 'Clientes & Leads',
       href: '/patients',
       icon: Users,
       roles: ['ADMIN', 'RECEPTIONIST', 'DENTIST'],
     },
     {
-      name: 'Bandeja WhatsApp',
-      href: '/chat',
-      icon: MessageSquare,
-      badge: unreadChatsCount > 0 ? unreadChatsCount : undefined,
+      name: 'Calendario de Llamadas',
+      href: '/calendar',
+      icon: Calendar,
       roles: ['ADMIN', 'RECEPTIONIST', 'DENTIST'],
     },
     {
@@ -65,13 +56,14 @@ export function Sidebar({ user, unreadChatsCount = 0, whatsappStatus = 'DISCONNE
       roles: ['ADMIN', 'RECEPTIONIST', 'DENTIST'],
     },
     {
-      name: 'Lista de Espera',
-      href: '/waiting-list',
-      icon: Clock,
-      roles: ['ADMIN', 'RECEPTIONIST'],
+      name: 'Línea WhatsApp',
+      href: '/chat',
+      icon: MessageSquare,
+      badge: unreadChatsCount > 0 ? unreadChatsCount : undefined,
+      roles: ['ADMIN', 'RECEPTIONIST', 'DENTIST'],
     },
     {
-      name: 'Configuración & IA',
+      name: 'Ajustes de IA',
       href: '/settings',
       icon: Settings,
       roles: ['ADMIN'],
@@ -94,13 +86,13 @@ export function Sidebar({ user, unreadChatsCount = 0, whatsappStatus = 'DISCONNE
       <div className="p-5 border-b border-slate-100 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-500 flex items-center justify-center text-white shadow-md shadow-brand-500/20 font-bold text-lg">
-            <Zap className="w-5 h-5 text-white" />
+            ⚡
           </div>
           <div>
-            <h1 className="font-semibold text-slate-900 text-sm tracking-tight leading-tight">
+            <h1 className="font-bold text-slate-900 text-sm tracking-tight leading-tight">
               daniautoma
             </h1>
-            <p className="text-xs text-slate-500 font-medium">Agencia IA & CRM</p>
+            <p className="text-[11px] text-slate-500 font-medium">Agencia de Automatización & IA</p>
           </div>
         </div>
       </div>

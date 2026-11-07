@@ -10,8 +10,8 @@ export function getOpenRouterClient(apiKey?: string): OpenAI {
       apiKey: key,
       baseURL: "https://openrouter.ai/api/v1",
       defaultHeaders: {
-        "HTTP-Referer": "https://daniautoma.cloud",
-        "X-Title": "CRM daniautoma AI",
+        "HTTP-Referer": "https://crm.daniautoma.cloud",
+        "X-Title": "daniautoma CRM & Asistente IA",
       },
     });
   }

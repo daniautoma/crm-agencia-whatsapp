@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'daniautoma | CRM & Asistente Virtual Oficial con IA',
-  description: 'Plataforma oficial de gestión operativa, llamadas de valoración estratégica y WhatsApp multiagente con IA de daniautoma',
+  title: 'daniautoma | CRM Operativo & Agente de WhatsApp',
+  description: 'CRM Operativo y Asistente Autónomo de WhatsApp para daniautoma (Agencia de Automatización & IA)',
 };
 
 export default function RootLayout({

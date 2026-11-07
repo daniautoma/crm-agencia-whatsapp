@@ -197,10 +197,10 @@ export async function getPatientDetailsAction(patientId: string) {
       },
     });
 
-    if (!patient) return { error: 'Paciente no encontrado' };
+    if (!patient) return { error: 'Contacto no encontrado' };
     return { success: true, patient };
   } catch (err: unknown) {
-    console.error('Error al obtener ficha de paciente:', err);
-    return { error: 'Error al consultar la ficha clínica' };
+    console.error('Error al obtener ficha de cliente:', err);
+    return { error: 'Error al consultar la ficha del cliente' };
   }
 }

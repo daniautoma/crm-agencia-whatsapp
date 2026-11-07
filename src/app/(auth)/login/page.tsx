@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { loginAction } from '@/app/actions/auth';
-import { Lock, Mail, ArrowRight, AlertCircle, Zap } from 'lucide-react';
+import { Lock, Mail, ArrowRight, AlertCircle } from 'lucide-react';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -50,13 +50,13 @@ export default function LoginPage() {
           {/* Header & Logo */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-500 text-white shadow-lg shadow-brand-500/25 mb-4 text-2xl font-bold">
-              <Zap className="w-7 h-7 text-white" />
+              ⚡
             </div>
             <h1 className="text-xl font-bold text-slate-900 tracking-tight">
-              daniautoma
+              daniautoma | CRM & Asistente IA
             </h1>
             <p className="text-xs text-slate-500 mt-1 font-medium">
-              Agencia de Automatización e Inteligencia Artificial
+              Acceso a la plataforma de operaciones y gestión de WhatsApp con IA
             </p>
           </div>
 
@@ -119,7 +119,7 @@ export default function LoginPage() {
             <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"
-                onClick={() => fillQuickCredentials('admin@daniautoma.cloud', 'AdminAutoma2025!')}
+                onClick={() => fillQuickCredentials('admin@daniautoma.cloud', 'AdminClinica2025!')}
                 className="p-2 rounded-lg border border-purple-200 bg-purple-50/60 hover:bg-purple-100 text-[11px] font-medium text-purple-800 transition-colors text-center"
               >
                 <div className="font-bold">Admin</div>
@@ -128,20 +128,20 @@ export default function LoginPage() {
 
               <button
                 type="button"
-                onClick={() => fillQuickCredentials('operaciones@daniautoma.cloud', 'Operaciones2025!')}
+                onClick={() => fillQuickCredentials('operaciones@daniautoma.cloud', 'Recepcion2025!')}
                 className="p-2 rounded-lg border border-blue-200 bg-blue-50/60 hover:bg-blue-100 text-[11px] font-medium text-blue-800 transition-colors text-center"
               >
                 <div className="font-bold">Operaciones</div>
-                <div className="text-[10px] text-blue-600">Llamadas & Chats</div>
+                <div className="text-[10px] text-blue-600">Leads & Chats</div>
               </button>
 
               <button
                 type="button"
-                onClick={() => fillQuickCredentials('dani@daniautoma.cloud', 'Dani2025!')}
+                onClick={() => fillQuickCredentials('daniel@daniautoma.cloud', 'Bianca2025!')}
                 className="p-2 rounded-lg border border-emerald-200 bg-emerald-50/60 hover:bg-emerald-100 text-[11px] font-medium text-emerald-800 transition-colors text-center"
               >
-                <div className="font-bold">Dani</div>
-                <div className="text-[10px] text-emerald-600">Consultor IA</div>
+                <div className="font-bold">Consultor IA</div>
+                <div className="text-[10px] text-emerald-600">Agenda</div>
               </button>
             </div>
           </div>
@@ -149,8 +149,8 @@ export default function LoginPage() {
 
         {/* Footer legal / institucional */}
         <div className="mt-6 text-center text-xs text-slate-400">
-          <p>daniautoma • Agencia de Automatización e Inteligencia Artificial</p>
-          <p className="text-[11px] mt-0.5">San Salvador, El Salvador • Servicios Globales • Horario L-V 08:00 - 18:00</p>
+          <p>daniautoma • Agencia de Automatización & Inteligencia Artificial</p>
+          <p className="text-[11px] mt-0.5">https://crm.daniautoma.cloud • Esteban Asistente Virtual</p>
         </div>
       </div>
     </div>

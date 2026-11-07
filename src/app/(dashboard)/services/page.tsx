@@ -21,7 +21,7 @@ export default async function ServicesPage() {
           Catálogo de Servicios y Soluciones
         </h1>
         <p className="text-xs text-slate-500 mt-1">
-          Servicios oficiales de daniautoma (Agentes IA, n8n, desarrollo web y consultoría), duraciones y tarifas autorizadas en USD ($).
+          Soluciones de automatización e IA oficiales de daniautoma, duraciones de llamada y cotizaciones en USD ($).
         </p>
       </div>
 

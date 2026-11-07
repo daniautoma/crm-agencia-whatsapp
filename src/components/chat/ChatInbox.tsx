@@ -245,7 +245,7 @@ export function ChatInbox({ initialConversations, currentUserName: _currentUserN
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Buscar cliente, lead o teléfono..."
+              placeholder="Buscar cliente o teléfono..."
               className="w-full pl-9 pr-3 py-1.5 text-xs bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-brand-500 text-slate-900"
             />
           </div>
@@ -463,7 +463,7 @@ export function ChatInbox({ initialConversations, currentUserName: _currentUserN
                       <div key={'msg_' + item.id} className="flex flex-col items-end ml-auto max-w-[78%]">
                         <div className="bg-purple-600 text-white p-3.5 rounded-2xl rounded-tr-sm text-xs shadow-xs leading-relaxed">
                           <div className="flex items-center gap-1 text-[10px] text-purple-200 mb-1 font-semibold">
-                            <Bot className="w-3 h-3" /> Asistente IA Esteban (daniautoma)
+                            <Bot className="w-3 h-3" /> Esteban (IA daniautoma)
                           </div>
                           {item.text}
                         </div>
@@ -527,8 +527,8 @@ export function ChatInbox({ initialConversations, currentUserName: _currentUserN
                   onChange={(e) => setMessageText(e.target.value)}
                   placeholder={
                     isInternalNote
-                      ? 'Escriba una nota visible solo para el personal clínico...'
-                      : 'Escriba un mensaje para el paciente (pausará la IA en este chat)...'
+                      ? 'Escriba una nota interna para el equipo de daniautoma...'
+                      : 'Escriba un mensaje para el cliente (pausará la IA en este chat)...'
                   }
                   className={`flex-1 px-3.5 py-2 text-xs border rounded-xl focus:outline-none focus:ring-2 text-slate-900 placeholder:text-slate-400 ${
                     isInternalNote
@@ -561,12 +561,12 @@ export function ChatInbox({ initialConversations, currentUserName: _currentUserN
         )}
       </div>
 
-      {/* Columna 3: Ficha Contextual del Paciente */}
+      {/* Columna 3: Ficha Contextual del Cliente / Lead */}
       {activeConversation && (
         <div className="w-72 border-l border-slate-200 p-4 bg-white hidden lg:flex flex-col shrink-0 justify-between">
           <div>
             <h4 className="font-bold text-xs text-slate-900 uppercase tracking-wider mb-3">
-              Ficha del Paciente
+              Ficha del Cliente / Lead
             </h4>
             <div className="text-center p-3 rounded-2xl bg-slate-50 border border-slate-100 mb-4">
               <div className="w-12 h-12 rounded-full bg-brand-600 text-white font-bold flex items-center justify-center text-base mx-auto mb-2">
